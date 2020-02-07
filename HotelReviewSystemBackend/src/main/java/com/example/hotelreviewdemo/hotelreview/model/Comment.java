@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment  extends  AuditModel{
 
 
     @Id

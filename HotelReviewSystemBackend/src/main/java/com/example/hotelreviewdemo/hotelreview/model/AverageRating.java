@@ -1,5 +1,7 @@
 package com.example.hotelreviewdemo.hotelreview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -75,7 +77,7 @@ public class AverageRating {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @JsonIgnore
     public Hotel getHotel() {
         return hotel;
     }

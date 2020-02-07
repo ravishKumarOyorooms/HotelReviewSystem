@@ -1,0 +1,20 @@
+.rating-pagination-div{
+    width: 100%;
+    border: .5px solid black;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.pagination{
+    justify-content: center !important;
+    display: flex;
+    list-style: none;
+}
+.pagination li{
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+.page-active{
+    background: blue;
+    color: white;
+}

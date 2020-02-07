@@ -78,14 +78,14 @@ public class RatingController {
 
             int no_of_ratings=hotel.getNo()+1;
             hotel.setNo(no_of_ratings);
-
-            avgRating.setAvgFood((food+(avgFood*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgService((service+(avgService*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgLocality((locality+(avgLocality*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgAccessiblity((accessiblity+(avgAccessiblity*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgCleanliness((cleanliness+(avgCleanliness*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgValueForMoney((valueForMoney+(avgValueForMoney*(no_of_ratings-1)))/no_of_ratings);
-            avgRating.setAvgSecurity((security+(avgSecurity*(no_of_ratings-1)))/no_of_ratings);
+            DecimalFormat df = new DecimalFormat("#.#");
+            avgRating.setAvgFood((float)DoubleRounder.round((food+(avgFood*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgService((float)DoubleRounder.round((service+(avgService*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgLocality((float)DoubleRounder.round((locality+(avgLocality*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgAccessiblity((float)DoubleRounder.round((accessiblity+(avgAccessiblity*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgCleanliness((float)DoubleRounder.round((cleanliness+(avgCleanliness*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgValueForMoney((float)DoubleRounder.round((valueForMoney+(avgValueForMoney*(no_of_ratings-1)))/no_of_ratings,1));
+            avgRating.setAvgSecurity((float)DoubleRounder.round((security+(avgSecurity*(no_of_ratings-1)))/no_of_ratings,1));
 
             float t_avg_food= avgRating.getAvgFood();
             float t_avg_service= avgRating.getAvgService();
@@ -96,10 +96,12 @@ public class RatingController {
             float t_avg_security=avgRating.getAvgSecurity();
 
             double total_avg_rating=(t_avg_food+t_avg_locality+t_avg_service+t_avg_accessiblity+t_avg_cleanliness+t_avg_value_for_money+t_avg_security)/7;
-            DecimalFormat df = new DecimalFormat("#.#");
+
             hotel.setTotal_average_ratings((float)DoubleRounder.round(total_avg_rating,1));
 
+
             averageRatingRepository.save(avgRating);
+            hotel.setAverageRating(avgRating);
             rating.setHotel(hotel);
 
             return ratingRepository.save(rating);

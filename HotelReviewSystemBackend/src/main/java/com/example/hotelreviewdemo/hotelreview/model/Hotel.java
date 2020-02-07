@@ -1,4 +1,6 @@
 package com.example.hotelreviewdemo.hotelreview.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -17,11 +19,12 @@ public class Hotel extends AuditModel{
     )
     private Long id;
     @NotBlank
-    private  String name;
-    private  String image;
+    private String name;
+    private String image;
     private String location;
-    private int noOfRatings=0;
-    private  float totalAvgRating;
+    private int    noOfRatings=0;
+    private float  totalAvgRating;
+//    private int    noOfHotel=0;
 
     public float getTotal_average_ratings() {
         return totalAvgRating;
@@ -31,19 +34,24 @@ public class Hotel extends AuditModel{
         this.totalAvgRating = total_average_ratings;
     }
 
-
-
     @OneToOne(
             cascade =  CascadeType.ALL,
             mappedBy = "hotel")
     private AverageRating averageRating;
+
+    public AverageRating getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(AverageRating averageRating) {
+        this.averageRating = averageRating;
+    }
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="hotelId",referencedColumnName = "id")
     private List<Comment> comment;
 
     public Hotel(){
-
     }
     public Hotel(@NotBlank String name, String image, String location) {
         this.name = name;

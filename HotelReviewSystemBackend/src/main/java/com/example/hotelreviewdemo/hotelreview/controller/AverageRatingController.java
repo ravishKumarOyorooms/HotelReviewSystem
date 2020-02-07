@@ -17,6 +17,7 @@ public class AverageRatingController {
     @GetMapping("/hotels/{hotelId}/avg_ratings")
 
     public AverageRating getAverageRatingByHotelId(@PathVariable Long hotelId) {
+
         return averageRatingRepository.findByHotelId(hotelId);
 
     }

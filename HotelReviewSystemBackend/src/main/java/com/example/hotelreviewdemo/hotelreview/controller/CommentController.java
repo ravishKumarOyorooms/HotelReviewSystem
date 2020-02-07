@@ -11,11 +11,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/hotels/{hotelId}")
 public class CommentController {
-
-
     @Autowired
     private CommentRepository commentRepository;
 

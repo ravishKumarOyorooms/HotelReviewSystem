@@ -19,7 +19,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public Page<User> getHotels(Pageable pageable) {
+    public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
@@ -29,18 +29,30 @@ public class UserController {
         Map<Long,String> data=new HashMap<Long,String>();
         Long id= Long.valueOf(-1);
         String value="";
+        if(userRepository.findByUsername(user.getUsername())==null) {
+            userRepository.save(user);
+            id = userRepository.findByUsername(user.getUsername()).getId();
+            value = user.getUsername();
+        }
+        else value="User Exists, Login to Continue";
+        data.put(id,value);
+        return data;
+    }
+    @PostMapping("/signin")
+    public Map<Long,String> checkUser(@Valid @RequestBody User user){
+        Map<Long,String> data=new HashMap<Long,String>();
+        Long id= Long.valueOf(-1);
+        String value="";
         if(userRepository.findByUsername(user.getUsername())==null){
-              userRepository.save(user);
-              id=userRepository.findByUsername(user.getUsername()).getId();
-              value=user.getUsername();
+            value="User do not Exists, SignUp to Continue";
         }
         else if(userRepository.findByUsername(user.getUsername()).getUsername().equals(user.getUsername())&&userRepository.findByUsername(user.getUsername()).getPassword().equals(user.getPassword())){
             id=userRepository.findByUsername(user.getUsername()).getId();
             value=user.getUsername();
 
         }
-         else value="Enter correct password";
-              data.put(id,value);
+        else value="Invalid Credentials";
+        data.put(id,value);
         return data;
     }
 
