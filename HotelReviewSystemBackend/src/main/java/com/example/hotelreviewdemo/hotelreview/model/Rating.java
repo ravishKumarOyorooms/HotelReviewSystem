@@ -16,7 +16,8 @@ public class Rating extends  AuditModel{
     @SequenceGenerator(
             name="rating_generator",
             sequenceName = "rating_sequence",
-            initialValue = 1
+            initialValue = 1,
+            allocationSize = 1
     )
     private Long id;
     private float service=0;

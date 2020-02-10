@@ -8,8 +8,13 @@ public class Comment  extends  AuditModel{
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "comment_generator")
+    @SequenceGenerator(
+            name="comment_generator",
+            sequenceName = "comment_sequence",
+            initialValue = 1
+    )
+            private Long id;
     private  String text;
     private  Long hotelId;
     private  Long userId;

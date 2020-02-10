@@ -9,7 +9,13 @@ import javax.persistence.*;
 public class AverageRating {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "avg_rating_generator")
+    @SequenceGenerator(
+            name="avg_rating_generator",
+            sequenceName = "avg_rating_sequence",
+            initialValue = 1,
+            allocationSize = 1
+    )
     private Long id;
     private float avgService;
     private float avgFood;

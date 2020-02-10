@@ -11,9 +11,7 @@ import {
   Box
 } from "@material-ui/core";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import ProgressBar from "react-bootstrap/ProgressBar";
 import { Progress } from "react-sweet-progress";
-import Icon from "@material-ui/core/Icon";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import Alert from "@material-ui/lab/Alert";
 import StarIcon from "@material-ui/icons/Star";
@@ -35,6 +33,8 @@ export default class Hotel extends Component {
   getHotelInfo = async () => {
     let userId = sessionStorage.getItem("userId");
     if (userId) this.setState({ isLogin: true });
+    else this.setState({isLogin:false})
+    console.log("islogin "+this.state.isLogin);
     const hid = this.props.match.params.id;
     const data1 = await Axios.get(`http://localhost:8080/hotels/hotel/${hid}`);
     console.log(data1);
@@ -194,7 +194,7 @@ export default class Hotel extends Component {
             )}
             <Grid container spacing={1} style={{ marginTop:"60px"}}>
               <Grid item >
-                {this.state.canReview && (
+                {this.state.canReview && this.state.isLogin &&(
                   <Button
                     startIcon={<AddBoxIcon />}
                     size="large"
@@ -205,7 +205,7 @@ export default class Hotel extends Component {
                     Add Rating
                   </Button>
                 )}
-                {!this.state.canReview && (
+                {!this.state.canReview && this.state.isLogin && (
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',

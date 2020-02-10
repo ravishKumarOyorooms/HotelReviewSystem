@@ -12,9 +12,11 @@ import java.util.List;
 
 @Repository
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
-    @Query("select h from Hotel h where lower(h.name) like lower(concat('%', ?1,'%'))")
+    @Query("select h from Hotel h where lower(h.name) like lower(concat('%', ?1,'%')) order by h.totalAvgRating desc," +
+            "h.noOfRatings desc")
     List<Hotel> findByNameLike(String name);
-    @Query("select h from Hotel h where lower(h.location) like lower(concat('%', ?1,'%'))")
+    @Query("select h from Hotel h where lower(h.location) like lower(concat('%', ?1,'%')) order by h.totalAvgRating desc," +
+            "h.noOfRatings desc")
     List<Hotel> findByLocationLike( String location);
 
 }

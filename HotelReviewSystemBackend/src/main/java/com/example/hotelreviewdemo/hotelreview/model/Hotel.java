@@ -15,7 +15,8 @@ public class Hotel extends AuditModel{
     @SequenceGenerator(
             name = "hotel_generator",
             sequenceName = "hotel_sequence",
-            initialValue = 1
+            initialValue = 1,
+            allocationSize = 1
     )
     private Long id;
     @NotBlank
